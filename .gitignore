@@ -1,0 +1,25 @@
+
+# Playwright
+node_modules/
+/test-results/
+/playwright-report/
+/blob-report/
+/playwright/.cache/
+/playwright/.auth/
+
+# Environment variables (keep templates versioned)
+.env
+.env.*
+!.env.example
+!.env.*.example
+
+# Logs and generated files
+*.log
+*.tsbuildinfo
+/coverage/
+/.nyc_output/
+
+# Operating system files
+.DS_Store
+Thumbs.db
+Desktop.ini
