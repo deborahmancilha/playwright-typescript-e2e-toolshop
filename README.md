@@ -9,9 +9,9 @@ Projeto de automação de testes web de ponta a ponta (E2E) com **Playwright** e
 
 ## Status do projeto
 
-`█░░░░░░░░░` **WIP - em desenvolvimento (fase inicial)**
+`██░░░░░░░░` **WIP - em desenvolvimento (primeira suíte em progresso)**
 
-O ambiente está configurado com Playwright e TypeScript, incluindo projetos para Chromium, Firefox e WebKit. A pasta `tests/` contém um teste inicial de acesso à página do Toolshop. Os cenários do MVP ainda estão planejados.
+O ambiente está configurado com Playwright e TypeScript, incluindo projetos para Chromium, Firefox e WebKit. A primeira suíte oficial, `tests/busca-produto.spec.ts`, implementa buscas com três conjuntos de dados e verifica o nome do produto nos resultados e após abrir seus detalhes. Os demais cenários do MVP seguem em evolução.
 
 ## Aplicação em teste
 
@@ -31,7 +31,7 @@ O MVP contempla cinco cenários:
 
 | ID | Cenário | Resultado esperado | Status |
 | --- | --- | --- | --- |
-| CT01 | Buscar um produto | Exibir produtos correspondentes ao termo pesquisado. | Planejado |
+| CT01 | Buscar um produto | Exibir produtos correspondentes ao termo pesquisado. |  Em progresso     |
 | CT02 | Filtrar produtos por categoria | Exibir produtos pertencentes à categoria selecionada. | Planejado |
 | CT03 | Abrir detalhes de um produto | Exibir a página de detalhes do produto selecionado. | Planejado |
 | CT04 | Adicionar produto ao carrinho | Incluir o produto selecionado no carrinho de compras. | Planejado |
@@ -48,18 +48,20 @@ playwright-typescript-e2e-toolshop/
   .vscode/
     settings.json
   tests/
-    hello-playwright.spec.ts
+    busca-produto.spec.ts
   .gitignore
   package.json
   package-lock.json
   playwright.config.ts
+  tsconfig.json
   README.md
 ```
 
 | Arquivo ou pasta | Responsabilidade |
 | --- | --- |
-| `tests/` | Contém os cenários automatizados em arquivos `.spec.ts`. O teste inicial abre o Toolshop e verifica o título da página. |
-| `playwright.config.ts` | Define a pasta de testes, os projetos Chromium, Firefox e WebKit, o relatório HTML e as opções de execução local e no CI. |
+| `tests/` | Contém os cenários automatizados em arquivos `.spec.ts`. A suíte de busca organiza os dados, localiza elementos por atributos `data-test` e verifica os resultados com `expect`. |
+| `playwright.config.ts` | Define a URL base do Toolshop, a pasta de testes, os projetos Chromium, Firefox e WebKit, o relatório HTML e as opções de execução local e no CI. |
+| `tsconfig.json` | Configura a checagem de tipos dos testes e da configuração do Playwright, incluindo os tipos do Node.js. |
 | `package.json` e `package-lock.json` | Declaram as dependências e registram as versões instaladas para reproduzir o ambiente. |
 | `.github/workflows/playwright.yml` | Instala dependências e navegadores, executa os testes e publica o relatório HTML no GitHub Actions. |
 | `.vscode/settings.json` | Guarda configurações do editor para o projeto. |
@@ -132,7 +134,19 @@ Para acompanhar a execução com a janela do navegador aberta:
 npx playwright test --project=chromium --headed
 ```
 
-Neste estágio, esses comandos executam o teste inicial de acesso ao Toolshop em `tests/hello-playwright.spec.ts`. Os cenários do MVP serão implementados nas próximas etapas.
+Para executar especificamente a suíte de busca de produtos:
+
+```bash
+npx playwright test tests/busca-produto.spec.ts
+```
+
+Para executar essa suíte somente no Chromium:
+
+```bash
+npx playwright test tests/busca-produto.spec.ts --project=chromium
+```
+
+Atualmente, a suíte disponível é `tests/busca-produto.spec.ts`. Novos cenários serão adicionados conforme a evolução do MVP.
 
 ### UI Mode
 
